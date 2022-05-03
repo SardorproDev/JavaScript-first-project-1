@@ -44,7 +44,17 @@ P.S. Funksiyalarni chaqirish shart emas */
 
 "use strict";
 
-let numberOfNews = +prompt("Siz qancha yangilik ko'rdingiz?");
+let numberOfNews;
+
+function startProject() {
+  numberOfNews = +prompt("Siz qancha yangilik ko'rdingiz?");
+  
+  while(numberOfNews == "" || numberOfNews == null || isNaN(numberOfNews)) {
+    numberOfNews = +prompt("Siz qancha yangilik ko'rdingiz?");
+  }
+}
+startProject();
+
 let personalNewsDB = {
     count: numberOfNews,
     news: {},
@@ -53,28 +63,43 @@ let personalNewsDB = {
     privat: false,
 }
 
-for(let i = 0; i < 2; i++){
+function rememberNews() {
+  for(let i = 0; i < 1; i++){
   
-  let savolA = prompt("Oxirgi ko'rgan yangiliklarizdan biri?"),
-    savolB = prompt("Unga qancha baho bergan bo'lar edingiz?");
-  if (savolA != "" && savolB != "" && savolA != null && savolB != null && savolA.length < 50) {
-      personalNewsDB.news[savolA] = savolB;
-      console.log("To'g'ri");
-  } else {
-    console.log("Xato");
-    i--;
+    let savolA = prompt("Oxirgi ko'rgan yangiliklarizdan biri?"),
+      savolB = prompt("Unga qancha baho bergan bo'lar edingiz?");
+    if (savolA != "" && savolB != "" && savolA != null && savolB != null && savolA.length < 50) {
+        personalNewsDB.news[savolA] = savolB;
+    } else {
+      console.log("Xato");
+      i--;
+    }
   }
 }
+rememberNews();
 
-if (personalNewsDB.count < 10) {
-  console.log("Juda oz sonli yangiliklar o'qilibdi");
-} else if (personalNewsDB.count >= 10 && personalNewsDB.count <= 30) {
-  console.log("Siz klassik tomoshabinsiz");
-} else if (personalNewsDB.count > 30) {
-  console.log("Siz yangilklar ishqibozisiz");
-} else{
-  console.log("Xato yuz berdi");
+function showPersonalNews() {
+  if (personalNewsDB.count < 10) {
+    console.log("Juda oz sonli yangiliklar o'qilibdi");
+  } else if (personalNewsDB.count >= 10 && personalNewsDB.count <= 30) {
+    console.log("Siz klassik tomoshabinsiz");
+  } else if (personalNewsDB.count > 30) {
+    console.log("Siz yangilklar ishqibozisiz");
+  } else{
+    console.log("Xato yuz berdi");
+  }
 }
+showPersonalNews();
+function showMyDB(hidden) {
+  if (!hidden) {
+    console.log(personalNewsDB);
+  }
+}
+showMyDB(personalNewsDB.privat);
 
-console.log(personalNewsDB);
-
+function writeYourGenres() {
+  for(let i = 1; i <= 3; i++) {   
+    personalNewsDB.genres[i - 1] = prompt(`Sizning sevimli janringiz ${i + 1}`);
+  }
+}
+writeYourGenres();
